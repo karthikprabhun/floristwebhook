@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="1" name="FloristWebhook">
+    <Basepaths>/floristwebhook</Basepaths>
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1503312079522</CreatedAt>
+    <CreatedBy>karthikprabhu9741@gmail.com</CreatedBy>
+    <Description>A webhook to backend service Florist API</Description>
+    <DisplayName>FloristWebhook</DisplayName>
+    <LastModifiedAt>1503390189029</LastModifiedAt>
+    <LastModifiedBy>karthikprabhu9741@gmail.com</LastModifiedBy>
+    <Policies>
+        <Policy>GetBackendAuth</Policy>
+        <Policy>GetPayloadDatajs</Policy>
+        <Policy>GetProductInformation</Policy>
+        <Policy>GetProductPrice</Policy>
+        <Policy>ModifyResponseAgentContext</Policy>
+        <Policy>getPayloadDatajs</Policy>
+        <Policy>parseRequestBody</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>node://app.js</Resource>
+        <Resource>jsc://createList.js</Resource>
+        <Resource>jsc://getPayloadData.js</Resource>
+        <Resource>jsc://parseRequestBody.js</Resource>
+    </Resources>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+    </TargetEndpoints>
+    <validate>false</validate>
+</APIProxy>

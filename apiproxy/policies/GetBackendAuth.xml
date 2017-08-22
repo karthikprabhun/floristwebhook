@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="GetBackendAuth" mapIdentifier="floristbackend_credential">
+    <DisplayName>GetBackendAuth</DisplayName>
+    <Properties/>
+    <!-- <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>86400</ExpiryTimeInSecs> -->
+    <Get assignTo="backendauth" index="1">
+        <Key>
+            <Parameter>BasicAuth</Parameter>
+        </Key>
+    </Get>
+</KeyValueMapOperations>

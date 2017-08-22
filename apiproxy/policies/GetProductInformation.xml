@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="GetProductInformation">
+    <DisplayName>GetProductInformation</DisplayName>
+    <Properties/>
+    <Request clearPayload="true" variable="myRequest">
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <QueryParams>
+                <QueryParam name="code">{product_code}</QueryParam>
+            </QueryParams>
+            <Headers>
+                <Header name="Authorization">Basic {backendauth}</Header>
+            </Headers>
+        </Set>
+    </Request>
+    <Response>calloutResponse</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <URL>https://www.floristone.com/api/rest/flowershop/getproducts</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>
