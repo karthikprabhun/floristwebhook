@@ -4,11 +4,19 @@
     <FaultRules/>
     <PreFlow name="PreFlow">
         <Request/>
-        <Response/>
+        <Response>
+        </Response>
     </PreFlow>
     <PostFlow name="PostFlow">
         <Request/>
-        <Response/>
+        <Response>
+            <Step>
+                <Name>GetJSONOrderDetails</Name>
+            </Step>
+            <Step>
+                <Name>ModifyReponsePlaceOrder</Name>
+            </Step>
+        </Response>
     </PostFlow>
     <Flows/>
     <HTTPTargetConnection>

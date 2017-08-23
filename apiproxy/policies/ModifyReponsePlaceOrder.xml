@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="ModifyReponsePlaceOrder">
+    <DisplayName>ModifyReponsePlaceOrder</DisplayName>
+    <DisplayName>ModifyResponse</DisplayName>
+    <Properties/>
+    <Set>
+        <Headers/>
+        <QueryParams/>
+        <FormParams/>
+        <StatusCode>200</StatusCode>
+        <ReasonPhrase>OK</ReasonPhrase>
+        <Payload contentType="application/json">{"speech": "SUBTOTAL: {getjsondata.SUBTOTAL},ORDERTOTAL : {getjsondata.ORDERTOTAL},ORDERNO: {getjsondata.ORDERNO}",
+          "displayText" : "SUBTOTAL: {getjsondata.SUBTOTAL},ORDERTOTAL : {getjsondata.ORDERTOTAL},ORDERNO: {getjsondata.ORDERNO}",
+          "source":"apiai-webhook-sample"}
+        </Payload>
+        <Path/>
+    </Set>
+    <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="response"/>
+</AssignMessage>

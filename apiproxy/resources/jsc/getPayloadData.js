@@ -51,7 +51,7 @@ var Ccinfo = function(parameters) {
 
 var Product = function(parameters) {
 	if (!parameters) {
-		parameters = {};
+		parameters = {};        
 	}
 		
 	this.code = parameters.code;
@@ -91,7 +91,7 @@ var Order = function(parameters) {
 	this.ccinfo.cvv2 = '';
 	this.ccinfo.expmonth = '';
 	this.ccinfo.expyear = '';
-	this.ordertotal = 134.89;
+	this.ordertotal = '';
 
 	if (parameters['customer']) {
 		var customer = parameters.customer;
@@ -126,35 +126,74 @@ Order.prototype.addItem = function(Item) { // Add product to Order
 	this.products.push(Item);
 };
 
+Order.prototype.setTotal = function(total) {
+	this.ordertotal = total;
+}
+
 Order.prototype.placeOrder = function(callback) {
 	var obj = new Object();
 
 	obj['products'] = JSON.stringify(this.products);
 	obj['customer'] = JSON.stringify(this.customer);
 	obj['ccinfo'] = JSON.stringify(this.ccinfo);
-	obj['ordertotal'] = JSON.stringify(this.ordertotal);
+	obj['ordertotal'] = this.ordertotal;
 
-	console.log(JSON.stringify(obj));
+print(JSON.stringify(obj));
 
-	stringified = JSON.stringify(obj);
-
-	httpJson.post(stringified, callback);
+context.setVariable("payLoad", obj);
+context.setVariable('request.content', JSON.stringify(obj));
 
 };
 
-var total_item = ['T22-3A','T22-3A','T22-3A'];
-var price_list =['59.95','59.95','59.95'];
+var json_data = JSON.parse(context.getVariable("request.content"));
+var cust = new Customer();
 
-for (var i = 0; i < total_item.length; i++) {
-	
+var ccinfo = new Ccinfo();
+
+var k = 0
+var context_loop = "";
+while(context_loop != "product-in-context"){
+    context_loop = json_data.result.contexts[k].name;
+    var all_price = json_data.result.contexts[k].parameters.Price_list;
+    var all_item = json_data.result.contexts[k].parameters.Item_list;
+    
+cust.address1 = json_data.result.contexts[k].parameters["address"] || json_data.result.contexts[4].parameters["geo-city"] + json_data.result.contexts[4].parameters["geo-country"] + json_data.result.contexts[4].parameters["State-US"] + json_data.result.contexts[4].parameters["zip-code"] ;
+cust.address2 = "";
+cust.city = json_data.result.contexts[k].parameters["geo-city"];
+cust.country = json_data.result.contexts[k].parameters["geo-country"];
+cust.email = json_data.result.contexts[k].parameters["email"];
+cust.ip = "1.1.1.1";
+cust.name = json_data.result.contexts[k].parameters["given-name"] || json.result.contexts[3].parameters["given-name"] + json.result.contexts[3].parameters["last-name"];
+cust.state = json_data.result.contexts[k].parameters["State-US"];
+cust.zipcode = json_data.result.contexts[k].parameters["zip-code"];
+cust.phone = json_data.result.contexts[k].parameters["phone-number"];
+    
+    k++
+}
+
+
+ccinfo.type = 'vi';
+ccinfo.ccnum = 1234512345123455;
+ccinfo.cvv2 = 123;
+ccinfo.expmonth = 3;
+ccinfo.expyear = 19;
+
+var order = new Order({
+	customer : cust,
+	ccinfo : ccinfo
+});
+
+var total_price_of_all_prod = 0;
+for (var i = 0; i < all_item.length; i++) {
+	var product = new Product();
 	
 	product.cardmessage = "This is a card message";
 	product.deliverydate = "2017-08-28";
 	product.specialinstructions = "Special delivery instructions go here";
-	product.code = total_item[i];
-	product.price = price_list[i];
+	product.code = all_item[i];
+	product.price = all_price[i];
+    total_price_of_all_prod = total_price_of_all_prod + all_price[i];
 
-	
 	product.recipient.name = "phil";
 	product.recipient.institution = "House";
 	product.recipient.address1 = "123 Big St";
@@ -168,4 +207,11 @@ for (var i = 0; i < total_item.length; i++) {
 	order.addItem(product);
 }
 
+var ordertotal = parseFloat(FLORISTONESERVICECHARGE) + parseFloat(total_price_of_all_prod);
+
+order.setTotal(ordertotal);
+
+order.placeOrder(function(result) {
+//	console.log(result)
+});
 

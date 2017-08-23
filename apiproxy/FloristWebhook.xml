@@ -6,13 +6,15 @@
     <CreatedBy>karthikprabhu9741@gmail.com</CreatedBy>
     <Description>A webhook to backend service Florist API</Description>
     <DisplayName>FloristWebhook</DisplayName>
-    <LastModifiedAt>1503390189029</LastModifiedAt>
+    <LastModifiedAt>1503482043058</LastModifiedAt>
     <LastModifiedBy>karthikprabhu9741@gmail.com</LastModifiedBy>
     <Policies>
         <Policy>GetBackendAuth</Policy>
+        <Policy>GetJSONOrderDetails</Policy>
         <Policy>GetPayloadDatajs</Policy>
         <Policy>GetProductInformation</Policy>
         <Policy>GetProductPrice</Policy>
+        <Policy>ModifyReponsePlaceOrder</Policy>
         <Policy>ModifyResponseAgentContext</Policy>
         <Policy>getPayloadDatajs</Policy>
         <Policy>parseRequestBody</Policy>
